@@ -1,2 +1,414 @@
-ingenious-solutions.co.uk<br />
-ingenious-solutions.uk
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Ingenious Solutions UK Limited — Coming Soon</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@200;300;400;500;600;700&family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&display=swap" rel="stylesheet">
+
+  <style>
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --blue:        #0532B8;
+      --charcoal:    #393939;
+      --blue-mid:    #3c6DB3;
+      --blush:       #DFCBCB;
+      --blush-dark:  #b89898;
+      --off-white:   #F4F6FB;
+      --white:       #FFFFFF;
+      --border:      rgba(5, 50, 184, 0.11);
+      --grid-line:   rgba(5, 50, 184, 0.045);
+    }
+
+    html, body { height: 100%; }
+
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background: var(--off-white);
+      color: var(--charcoal);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* ── Background canvas ── */
+    .bg {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      overflow: hidden;
+    }
+
+    /* Dot grid */
+    .bg::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: radial-gradient(circle, rgba(5,50,184,0.12) 1px, transparent 1px);
+      background-size: 36px 36px;
+    }
+
+    /* Gradient blobs */
+    .blob {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(90px);
+      pointer-events: none;
+    }
+    .blob-1 {
+      width: 55vw; height: 55vw;
+      max-width: 700px; max-height: 700px;
+      background: radial-gradient(circle, rgba(5,50,184,0.13), transparent 70%);
+      top: -15%; right: -10%;
+      animation: float1 20s ease-in-out infinite alternate;
+    }
+    .blob-2 {
+      width: 45vw; height: 45vw;
+      max-width: 560px; max-height: 560px;
+      background: radial-gradient(circle, rgba(223,203,203,0.55), transparent 70%);
+      bottom: -10%; left: -8%;
+      animation: float2 25s ease-in-out infinite alternate;
+    }
+    .blob-3 {
+      width: 30vw; height: 30vw;
+      max-width: 380px; max-height: 380px;
+      background: radial-gradient(circle, rgba(60,109,179,0.10), transparent 70%);
+      top: 50%; right: 5%;
+      transform: translateY(-50%);
+      animation: float3 18s ease-in-out infinite alternate;
+    }
+
+    @keyframes float1 { from { transform: translate(0,0) scale(1); } to { transform: translate(-30px,40px) scale(1.07); } }
+    @keyframes float2 { from { transform: translate(0,0); } to { transform: translate(25px,-35px) scale(1.05); } }
+    @keyframes float3 { from { transform: translateY(-50%) scale(1); } to { transform: translateY(calc(-50% + 20px)) scale(1.04); } }
+
+    /* ── Thin top bar ── */
+    .topbar {
+      position: relative;
+      z-index: 10;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 20px 40px;
+      animation: fadeDown 0.8s cubic-bezier(0.22,1,0.36,1) both;
+    }
+
+    .topbar-brand {
+      font-family: 'Outfit', sans-serif;
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--blue-mid);
+      opacity: 0.7;
+    }
+
+    .topbar-status {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: #aaa;
+    }
+
+    .status-dot {
+      width: 7px; height: 7px;
+      border-radius: 50%;
+      background: #5dbb84;
+      box-shadow: 0 0 0 3px rgba(93,187,132,0.2);
+      animation: pulse 2.5s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { box-shadow: 0 0 0 3px rgba(93,187,132,0.2); }
+      50%       { box-shadow: 0 0 0 6px rgba(93,187,132,0.08); }
+    }
+
+    /* ── Main layout ── */
+    .page {
+      position: relative;
+      z-index: 1;
+      min-height: calc(100vh - 140px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 24px;
+    }
+
+    .center {
+      width: 100%;
+      max-width: 720px;
+      text-align: center;
+    }
+
+    /* ── Logo block ── */
+    .logo-wrap {
+      display: inline-flex;
+      flex-direction: column;
+      align-items: center;
+      margin-bottom: 32px;
+      animation: fadeUp 0.9s 0.1s cubic-bezier(0.22,1,0.36,1) both;
+    }
+
+    .logo-ingenious {
+      font-family: 'Outfit', sans-serif;
+      font-size: clamp(54px, 12vw, 92px);
+      font-weight: 700;
+      letter-spacing: -2px;
+      color: var(--blue);
+      line-height: 1;
+      text-shadow: 0 4px 24px rgba(5,50,184,0.18);
+    }
+
+    .logo-solutions {
+      font-family: 'Outfit', sans-serif;
+      font-size: clamp(16px, 3.5vw, 26px);
+      font-weight: 300;
+      letter-spacing: clamp(6px, 2vw, 14px);
+      text-transform: uppercase;
+      color: var(--charcoal);
+      line-height: 1;
+      margin-top: 16px;
+      padding-left: clamp(6px, 2vw, 14px);
+    }
+
+    /* ── Gradient rule ── */
+    .rule {
+      width: 100%;
+      max-width: 360px;
+      height: 1px;
+      margin: 0 auto 32px;
+      background: linear-gradient(90deg, transparent, var(--blue-mid), var(--blush), transparent);
+      animation: fadeUp 0.9s 0.2s cubic-bezier(0.22,1,0.36,1) both;
+    }
+
+    /* ── Tagline ── */
+    .tagline {
+      font-family: 'Outfit', sans-serif;
+      font-size: clamp(18px, 3.8vw, 26px);
+      font-weight: 300;
+      line-height: 1.55;
+      color: var(--charcoal);
+      margin-bottom: 10px;
+      animation: fadeUp 0.9s 0.28s cubic-bezier(0.22,1,0.36,1) both;
+    }
+
+    .tagline .t-blue  { color: var(--blue-mid); font-weight: 500; }
+    .tagline .t-blush { color: var(--blush-dark); font-weight: 400; }
+
+    .tagline-sub {
+      font-size: clamp(12px, 2vw, 14px);
+      font-weight: 400;
+      color: #9aa0b0;
+      letter-spacing: 0.4px;
+      margin-bottom: 44px;
+      animation: fadeUp 0.9s 0.35s cubic-bezier(0.22,1,0.36,1) both;
+    }
+
+    /* ── Service chips ── */
+    .chips {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 52px;
+      animation: fadeUp 0.9s 0.42s cubic-bezier(0.22,1,0.36,1) both;
+    }
+
+    .chip {
+      font-family: 'Outfit', sans-serif;
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.6px;
+      color: var(--blue);
+      border: 1.5px solid var(--border);
+      border-radius: 100px;
+      padding: 8px 20px;
+      background: rgba(255,255,255,0.6);
+      backdrop-filter: blur(8px);
+      transition: all 0.22s ease;
+      cursor: default;
+    }
+
+    .chip:hover {
+      background: rgba(5,50,184,0.07);
+      border-color: rgba(5,50,184,0.28);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 18px rgba(5,50,184,0.10);
+    }
+
+    /* ── Coming Soon card ── */
+    .cs-block {
+      background: rgba(255,255,255,0.65);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 44px 40px;
+      box-shadow:
+        0 2px 4px rgba(5,50,184,0.04),
+        0 10px 30px rgba(5,50,184,0.07),
+        0 40px 80px rgba(5,50,184,0.05);
+      position: relative;
+      overflow: hidden;
+      animation: fadeUp 0.9s 0.5s cubic-bezier(0.22,1,0.36,1) both;
+    }
+
+    /* Gradient top accent strip */
+    .cs-block::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--blue), var(--blue-mid), var(--blush));
+    }
+
+    .cs-eyebrow {
+      font-family: 'Outfit', sans-serif;
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: #bbb;
+      margin-bottom: 14px;
+    }
+
+    .cs-headline {
+      font-family: 'Outfit', sans-serif;
+      font-size: clamp(32px, 7vw, 52px);
+      font-weight: 700;
+      letter-spacing: -1.5px;
+      color: var(--blue);
+      line-height: 1.05;
+      margin-bottom: 16px;
+    }
+
+    .cs-body {
+      font-size: clamp(13px, 2vw, 15px);
+      font-weight: 400;
+      color: #8a90a0;
+      line-height: 1.75;
+      max-width: 420px;
+      margin: 0 auto;
+    }
+
+    /* ── Footer ── */
+    footer {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      padding: 16px 24px 32px;
+      animation: fadeUp 0.9s 0.65s cubic-bezier(0.22,1,0.36,1) both;
+    }
+
+    footer p {
+      font-size: 12px;
+      color: #c0c4ce;
+      letter-spacing: 0.3px;
+    }
+
+    footer a {
+      color: var(--blue-mid);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    footer a:hover { color: var(--blue); }
+
+    /* ── Keyframes ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(28px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeDown {
+      from { opacity: 0; transform: translateY(-16px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 600px) {
+      .topbar { padding: 16px 20px; }
+      .topbar-brand { font-size: 10px; letter-spacing: 2px; }
+      .cs-block { padding: 32px 24px; }
+      .chips { gap: 8px; }
+      .chip { font-size: 11px; padding: 7px 16px; }
+    }
+
+    @media (max-width: 400px) {
+      .logo-ingenious { letter-spacing: -1px; }
+      .logo-solutions { letter-spacing: 5px; padding-left: 5px; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="bg" aria-hidden="true">
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+    <div class="blob blob-3"></div>
+  </div>
+
+  <header class="topbar">
+    <span class="topbar-brand">Ingenious Solutions UK Ltd</span>
+    <span class="topbar-status">
+      <span class="status-dot"></span>
+      Building
+    </span>
+  </header>
+
+  <main class="page">
+    <div class="center">
+
+      <div class="logo-wrap" role="img" aria-label="Ingenious Solutions">
+        <span class="logo-ingenious">Ingenious</span>
+        <span class="logo-solutions">Solutions</span>
+      </div>
+
+      <div class="rule"></div>
+
+      <p class="tagline">
+        <span class="t-blue">Smart thinking.</span>&nbsp;
+        <span class="t-blush">Real results.</span>&nbsp;
+        Genuinely helpful.
+      </p>
+      <p class="tagline-sub">PHP Development &nbsp;&bull;&nbsp; Consulting &nbsp;&bull;&nbsp; Digital Products</p>
+
+      <div class="chips">
+        <span class="chip">PHP Development</span>
+        <span class="chip">Technical Consulting</span>
+        <span class="chip">Bespoke Solutions</span>
+        <span class="chip">Digital Products</span>
+        <span class="chip">System Architecture</span>
+      </div>
+
+      <div class="cs-block">
+        <p class="cs-eyebrow">Something great is coming</p>
+        <h1 class="cs-headline">We're on our way.</h1>
+        <p class="cs-body">
+          Our new site is being built with the same precision and care
+          we pour into every client engagement. It won't be long —
+          and we think you'll like what you find.
+        </p>
+      </div>
+
+    </div>
+  </main>
+
+  <footer>
+    <p>
+      &copy; 2025 Ingenious Solutions UK Limited. All rights reserved.
+      &nbsp;&bull;&nbsp;
+      <a href="mailto:hello@ingenioussolutions.co.uk">hello@ingenioussolutions.co.uk</a>
+    </p>
+  </footer>
+
+</body>
+</html>
